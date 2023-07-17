@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+    .box-style{
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow:  20px 20px 40px #bebebe,
+             -20px -20px 40px #ffffff;
+    }
+    </style>
+</head>
+
+<body style="background-color: rgb(242,243,245);">
+    <section class="my-5 p-5 col-lg-9 container box-style">
+        <div class="h4 mx-auto pb-2 mb-4 text-success border-bottom border-success border-3">
+            <span th:text="${movie.getName}"></span>
+        </div>
+        <div class="row">
+            <img class="col-lg-3" th:src="@{https://img2.doubanio.com/view/photo/s_ratio_poster/public/{img}.webp(img=${movie.getImg})}" alt="...">
+            <div class="col-lg" th:utext="${movie.getInfo}"></div>
+        </div>
+        <div class="h4 py-5 mx-auto pb-2 mb-4 text-success border-bottom border-success border-3">
+            剧情简介
+        </div>
+        <div class="" th:utext="${movie.getProfile}"></div>
+        <div class="mt-4 px-3 border-start border-success border-5" >
+            <span>在线播放：</span>
+        <a><p><a th:href="${movie.getSite}" th:text="' '+${movie.getSite}">www.baidu.com</a></p>
+    </div>
+    </section>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

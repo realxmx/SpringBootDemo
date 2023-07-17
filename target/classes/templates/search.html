@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .text-truncate-2 {
+            text-overflow: -o-ellipsis-lastline;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+        .box-style{
+        border-radius: 20px;
+        background: #ffffff;
+        box-shadow:  20px 20px 40px #bebebe,
+             -20px -20px 40px #ffffff;
+        width: 71% !important;
+    }
+    </style>
+</head>
+
+<body style="background-color: rgb(242,243,245);">
+    <section class="py-5 col-lg-8 container">
+        <div class="row py-lg-10">
+            <form class="py-2 d-flex" role="search" th:action="@{/search}">
+                <input class="form-control me-2 flex-grow-1" name="name" type="search" placeholder="Search"
+                    aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+    </section>
+    <div class="box-style col-lg-9 mx-auto p-5">
+        <div class="h4 mb-5 pb-2 mb-4 text-success border-bottom border-success border-3">
+            搜索结果：
+        </div>
+        
+        <div class="card mb-3 border-success border-2" style="height: 170px;" th:each="movie:${movies}">
+            <div class="row g-0">
+                <div class="col-md-2">
+                    <img class=" rounded-start"
+                        th:src="@{https://img2.doubanio.com/view/photo/s_ratio_poster/public/{Img}.webp(Img=${movie.getImg})}"
+                        alt="..." style="height: 170px;">
+                </div>
+                <div class="col-md-3">
+                    <div class="card-body">
+                        <h4 class="card-title" th:text="${movie.getName}"> Card title</h4>
+                        <span th:text="'热度：'+${movie.getHot}"></span>
+                    </div>
+                </div>
+                <div class="p-2 col-md-7">
+                    <div
+                        class="h-100 text-secondary border-start border-success border-2 d-flex flex-column justify-content-between">
+                        <p class="card-text mx-2 text-truncate-2" th:text="${movie.getProfile}">占位符</p>
+                        <!-- <small class="card-text mx-2 text-muted text-truncate" th:utext="${movie.getInfo}">Last updated 3 mins ago</small> -->
+                        <div class="d-grid d-md-flex justify-content-md-end">
+                            <a class="col-3" th:href="@{/detail/{id}(id=${movie.getId})}" th:target="_blank">
+                                <button class="btn btn-outline-success w-100 text-nowrap" type="button"
+                                    th:target="_blank">详情</button>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

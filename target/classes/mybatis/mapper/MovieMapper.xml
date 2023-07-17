@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.MovieMapper">
+    <resultMap id="BaseResultMap" type="com.example.demo.model.Movie" >
+        <id column="id" property="id" jdbcType="INTEGER" />
+        <result column="name" property="name" jdbcType="CHAR" />
+        <result column="hot" property="hot" jdbcType="INTEGER" />
+        <result column="img" property="img" jdbcType="CHAR" />
+        <result column="info" property="info" jdbcType="VARCHAR" />
+        <result column="profile" property="profile" jdbcType="VARCHAR" />
+        <result column="site" property="site" jdbcType="CHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List" >
+        id, name, hot, img, info, profile, site
+    </sql>
+
+    <select id="getAll" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM movie
+    </select>
+
+    <select id="getSearch" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM movie
+        WHERE name LIKE "%"#{name}"%"
+    </select>
+
+    <select id="getHot" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM movie
+        ORDER BY hot DESC
+        LIMIT 12
+    </select>
+
+    <select id="getMovie" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM movie
+        WHERE id = #{id}
+    </select>
+
+    <insert id="insert" parameterType="com.example.demo.model.Movie">
+        INSERT INTO
+            movie
+            (name, hot, img, info, profile, site)
+        VALUES
+            (
+            <if test="name !=null">#{name},</if>
+            #{hot},#{img},#{info},#{profile},#{site})
+    </insert>
+
+    <update id="update">
+        UPDATE
+            movie
+        SET
+            <if test="param2.name !=null">name = #{param2.name},</if>
+            hot = #{param2.hot},
+            img = #{param2.img},
+            info = #{param2.info},
+            profile = #{param2.profile},
+            site = #{param2.site}
+        WHERE
+            name = #{name}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.String">
+        DELETE FROM
+            movie
+        WHERE
+            name = #{name}
+    </delete>
+</mapper>
+
+
+
+
+        
