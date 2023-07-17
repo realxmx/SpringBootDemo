@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>电影</title>
+    <link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="py-4 collapse text-center col-3 mx-auto" id="navbarToggleExternalContent">
+        <form class="form-signin" th:action="@{/login}">
+			<img class="mb-4" style="border-radius: 5em;" th:src="@{/img/xmx-s.jpg}" alt="" width="72" height="72">
+			<input type="text" name="username" class="form-control my-3" placeholder="用户名" required="" autofocus="">
+			<input type="password" name="password" class="form-control my-3" placeholder="密码" required="">
+			<div class="checkbox mb-3">
+				<label>
+          <input type="checkbox" value="remember-me"> 记住我
+        </label>
+			</div>
+			<button class="btn btn-success btn-block" type="submit">管理员登录</button>
+		</form>
+    </div>
+    <nav class="navbar">
+        <div class="container-fluid">
+            <button class="btn btn-outline-success border-light" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <span class="navbar-text" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}">
+            </span>
+        </div>
+    </nav>
+    <section class="py-5 text-center container">
+        <div class="py-lg-10">
+            <div class="col-md-9 mx-auto">
+                <h1 class="fw-light">电影</h1>
+                <p class="lead text-muted">通往故事和文化的门户， 每个人都可以使用。</p>
+                <form class="py-2 d-flex" role="search" th:action="@{/search}">
+                    <input class="form-control me-2 flex-grow-1" name="name" type="search" placeholder="请输入" aria-label="Search">
+                    <button class="btn btn-outline-success text-nowrap" type="submit">搜索</button>
+                </form>
+            </div>
+        </div>
+    </section>
+    <section class="py-5 container">
+        <div class="h4 col-lg-9 mx-auto pb-2 mb-4 text-success border-bottom border-success border-3">
+            热门推荐
+        </div>
+        <div class="col-lg-9 mx-auto d-flex flex-wrap">
+            <div class="flex-fill">
+                <a class="link-success" th:each="movie:${hotMovie}" th:href="@{/detail/{id}(id=${movie.getId})}" th:target="_blank"><button type="button" class="btn col-2">
+                    <img th:src="@{https://img2.doubanio.com/view/photo/s_ratio_poster/public/{Img}.webp(Img=${movie.getImg})}" class="img-fluid" alt="...">
+                    </button></a>
+            </div>
+        </div>
+    </section>
+    <script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
